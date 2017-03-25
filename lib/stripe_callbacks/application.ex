@@ -12,6 +12,7 @@ defmodule StripeCallbacks.Application do
     children = [
       # Starts a worker by calling: StripeCallbacks.Worker.start_link(arg1, arg2, arg3)
       # worker(StripeCallbacks.Worker, [arg1, arg2, arg3]),
+      supervisor(StripeCallbacks.Repo, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
