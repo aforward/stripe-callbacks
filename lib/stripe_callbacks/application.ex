@@ -8,10 +8,7 @@ defmodule StripeCallbacks.Application do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    # Define workers and child supervisors to be supervised
     children = [
-      # Starts a worker by calling: StripeCallbacks.Worker.start_link(arg1, arg2, arg3)
-      # worker(StripeCallbacks.Worker, [arg1, arg2, arg3]),
       supervisor(StripeCallbacks.Repo, []),
     ]
 
