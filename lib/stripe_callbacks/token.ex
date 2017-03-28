@@ -2,7 +2,7 @@ defmodule StripeCallbacks.Token do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias StripeCallbacks.{Token,Repo}
+  alias StripeCallbacks.{Token,Response,Repo}
 
   @derive {Poison.Encoder, only: [:data, :token_status]}
   schema "tokens" do
@@ -16,16 +16,54 @@ defmodule StripeCallbacks.Token do
     |> cast(params, [:data, :token_status])
   end
 
-  def create(data) do
+  def process(data) do
     data
-    |> store
+    |> create
+    |> post_to_api
+    |> analyze_response
   end
 
-  def store(data), do: store(data, "pending")
-  def store(data, token_status) do
+  def update(token, token_status) do
+    token
+    |> changeset(%{token_status: token_status})
+    |> Repo.update
+  end
+
+  def create(data), do: create(data, "pending")
+  def create(data, token_status) do
     %Token{}
     |> Token.changeset(%{data: data, token_status: token_status})
     |> Repo.insert
   end
+
+  def post_to_api({:ok, %Token{data: %{"stripe" => stripe, "invoice" => invoice}} = token}) do
+    config = %{
+      secret_key: "sk_test_abc123",
+    }
+
+    data = %{
+      amount: invoice["amount"],
+      currency: invoice["currency"],
+      description: invoice["description"],
+      source: stripe["id"],
+    }
+
+    {_, response} = case StripePost.charge(data, config) do
+      {:error, {k, v}} ->
+        Response.create(token, %{reason: "{#{k}, #{v}}"}, :error)
+      {:error, reason} ->
+        Response.create(token, %{reason: reason}, :error)
+      {status_code, body} ->
+        Response.create(token, body, status_code)
+    end
+    {token, response}
+  end
+  def post_to_api(resp), do: resp
+
+  defp analyze_response({token, %Response{status_code: 200}}), do: update(token, "processed")
+  defp analyze_response({token, %Response{status_code: -1}}), do: update(token, "error")
+  defp analyze_response({token, %Response{status_code: _status}}), do: update(token, "invalid")
+  defp analyze_response(resp), do: resp
+
 
 end

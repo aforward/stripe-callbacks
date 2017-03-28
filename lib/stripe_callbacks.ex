@@ -6,4 +6,21 @@ defmodule StripeCallbacks do
   StripeCallbacks.Response) when applying those
   """
 
+  @doc """
+    Process data returned from the client, it should contain the
+    stripe response, as well information related to the charge
+    (aka invoice) you sent to stripe.
+
+  ## Examples
+
+      iex> StripeCallbacks.process(%{
+      ...>    "stripe" => %{"id" => "“pk_abc_123”"},
+      ...>    "invoice" => %{
+      ...>      "amount" => 2000,
+      ...>      "currency" => "cad",
+      ...>      "description" => "3 wozzle”"}})
+      {:error, {:tls_alert, 'handshake failure'}}
+  """
+  defdelegate process(data), to: StripeCallbacks.Worker
+
 end

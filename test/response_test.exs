@@ -13,27 +13,27 @@ defmodule StripeCallbacks.ResponseTest do
     assert changeset.valid?
   end
 
-  test "store (200)" do
-    {:ok, token} = Token.store(%{b: 2})
-    {:ok, response} = Response.store(token, %{a: 1}, 200)
+  test "create (200)" do
+    {:ok, token} = Token.create(%{b: 2})
+    {:ok, response} = Response.create(token, %{a: 1}, 200)
     assert response.data == %{a: 1}
     assert response.response_status == "success"
     assert response.token_id == token.id
     assert response.status_code == 200
   end
 
-  test "store (not 200)" do
-    {:ok, token} = Token.store(%{b: 2})
-    {:ok, response} = Response.store(token, %{a: 2}, 355)
+  test "create (not 200)" do
+    {:ok, token} = Token.create(%{b: 2})
+    {:ok, response} = Response.create(token, %{a: 2}, 355)
     assert response.data == %{a: 2}
     assert response.response_status == "failure"
     assert response.token_id == token.id
     assert response.status_code == 355
   end
 
-  test "store (error)" do
-    {:ok, token} = Token.store(%{b: 2})
-    {:ok, response} = Response.store(token, %{a: 2}, :error)
+  test "create (error)" do
+    {:ok, token} = Token.create(%{b: 2})
+    {:ok, response} = Response.create(token, %{a: 2}, :error)
     assert response.data == %{a: 2}
     assert response.response_status == "error"
     assert response.token_id == token.id

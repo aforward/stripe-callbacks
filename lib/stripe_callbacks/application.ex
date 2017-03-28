@@ -9,6 +9,7 @@ defmodule StripeCallbacks.Application do
     import Supervisor.Spec, warn: false
 
     children = [
+      worker(StripeCallbacks.Worker, []),
       supervisor(StripeCallbacks.Repo, []),
     ]
 

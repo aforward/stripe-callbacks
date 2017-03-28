@@ -3,7 +3,7 @@ defmodule StripeCallbacks.Mixfile do
 
   @git_url "https://github.com/aforward/stripe-callbacks"
   @home_url @git_url
-  @version "0.1.0"
+  @version "0.2.0"
 
   def project do
     [app: :stripe_callbacks,
@@ -31,6 +31,7 @@ defmodule StripeCallbacks.Mixfile do
 
   def aliases() do
     ["test": ["ecto.drop --quiet", "ecto.create --quiet", "ecto.migrate", "test"]]
+    ["test.watch": ["ecto.drop --quiet", "ecto.create --quiet", "ecto.migrate", "test.watch"]]
   end
 
   # Dependencies can be Hex packages:
@@ -47,6 +48,7 @@ defmodule StripeCallbacks.Mixfile do
      {:postgrex, "~> 0.13.2"},
      {:ecto, "~> 2.1"},
      {:poison, "~> 3.1.0"},
+     {:stripe_post, "~> 0.1.0"},
      {:ex_doc, ">= 0.0.0", only: :dev}]
   end
 

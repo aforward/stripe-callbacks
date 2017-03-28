@@ -13,16 +13,23 @@ defmodule StripeCallbacks.TokenTest do
     assert changeset.valid?
   end
 
-  test "store" do
-    {:ok, token} = Token.store(%{a: 1}, "processed")
+  test "create" do
+    {:ok, token} = Token.create(%{a: 1}, "processed")
     assert token.data == %{a: 1}
     assert token.token_status == "processed"
   end
 
-  test "store (default status)" do
-    {:ok, token} = Token.store(%{a: 2})
+  test "create (default status)" do
+    {:ok, token} = Token.create(%{a: 2})
     assert token.data == %{a: 2}
     assert token.token_status == "pending"
+  end
+
+  test "update" do
+    {:ok, token} = Token.create(%{a: 1})
+    {:ok, updated} = Token.update(token, "error")
+    assert updated.data == %{a: 1}
+    assert updated.token_status == "error"
   end
 
 end
