@@ -19,7 +19,8 @@ defmodule StripeCallbacks do
       ...>      "amount" => 2000,
       ...>      "currency" => "cad",
       ...>      "description" => "3 wozzle”"}})
-      {:error, {:tls_alert, 'handshake failure'}}
+      ...> |> elem(0)
+      :ok
   """
   defdelegate process(data), to: StripeCallbacks.Worker
 
