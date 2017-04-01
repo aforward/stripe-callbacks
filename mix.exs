@@ -3,7 +3,7 @@ defmodule StripeCallbacks.Mixfile do
 
   @git_url "https://github.com/aforward/stripe-callbacks"
   @home_url @git_url
-  @version "0.2.1"
+  @version "0.3.0"
 
   def project do
     [app: :stripe_callbacks,
