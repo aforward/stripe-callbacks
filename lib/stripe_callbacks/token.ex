@@ -37,10 +37,6 @@ defmodule StripeCallbacks.Token do
   end
 
   def post_to_api({:ok, %Token{data: %{"stripe" => stripe, "invoice" => invoice}} = token}) do
-    config = %{
-      secret_key: "sk_test_abc123",
-    }
-
     data = %{
       amount: invoice["amount"],
       currency: invoice["currency"],
@@ -48,7 +44,7 @@ defmodule StripeCallbacks.Token do
       source: stripe["id"],
     }
 
-    {_, response} = case StripePost.charge(data, config) do
+    {_, response} = case StripePost.charge(data) do
       {:error, {k, v}} ->
         Response.create(token, %{reason: "{#{k}, #{v}}"}, :error)
       {:error, reason} ->

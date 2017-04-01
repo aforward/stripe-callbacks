@@ -8,6 +8,10 @@ config :stripe_callbacks, StripeCallbacks.Repo, [
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox]
 
+config :stripe_post,
+  secret_key: "sk_test_abc123",
+  public_key: "pk_test_def456"
+
 config :logger,
   backends: [:console],
   level: :warn,

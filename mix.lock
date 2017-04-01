@@ -16,4 +16,4 @@
   "poolboy": {:hex, :poolboy, "1.5.1", "6b46163901cfd0a1b43d692657ed9d7e599853b3b21b95ae5ae0a777cf9b6ca8", [:rebar], []},
   "postgrex": {:hex, :postgrex, "0.13.2", "2b88168fc6a5456a27bfb54ccf0ba4025d274841a7a3af5e5deb1b755d95154e", [:mix], [{:connection, "~> 1.0", [hex: :connection, optional: false]}, {:db_connection, "~> 1.1", [hex: :db_connection, optional: false]}, {:decimal, "~> 1.0", [hex: :decimal, optional: false]}]},
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.1", "28a4d65b7f59893bc2c7de786dec1e1555bd742d336043fe644ae956c3497fbe", [:make, :rebar], []},
-  "stripe_post": {:hex, :stripe_post, "0.1.0", "b1c8d8fe05cf932ccb4ce050c8e10594a9c491709e904445e21f2196f8241778", [:mix], [{:httpoison, "~> 0.11.1", [hex: :httpoison, optional: false]}, {:poison, "~> 3.1.0", [hex: :poison, optional: false]}]}}
+  "stripe_post": {:hex, :stripe_post, "0.3.0", "4c04f3cce918b0f2453d3d217852a8f96409a0ba9870423e0ebf53923de96567", [:mix], [{:httpoison, "~> 0.11.1", [hex: :httpoison, optional: false]}, {:poison, "~> 3.1.0", [hex: :poison, optional: false]}]}}
