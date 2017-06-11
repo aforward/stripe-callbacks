@@ -23,6 +23,12 @@ defmodule StripeCallbacks.Token do
     |> analyze_response
   end
 
+  def analyze(token) do
+    {:ok, token}
+    |> post_to_api
+    |> analyze_response
+  end
+
   def update(token, token_status) do
     token
     |> changeset(%{token_status: token_status})
