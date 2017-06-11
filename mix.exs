@@ -47,7 +47,7 @@ defmodule StripeCallbacks.Mixfile do
      {:postgrex, "~> 0.13.2"},
      {:ecto, "~> 2.1"},
      {:poison, "~> 3.1.0"},
-     {:stripe_post, "~> 0.3.0"},
+     {:stripe_post, "~> 0.4.0"},
      {:ex_doc, ">= 0.0.0", only: :dev}]
   end
 
