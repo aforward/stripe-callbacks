@@ -1,6 +1,7 @@
 defmodule StripeCallbacks.Token do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query, only: [from: 2]
 
   alias StripeCallbacks.{Token,Response,Repo}
 
@@ -40,6 +41,11 @@ defmodule StripeCallbacks.Token do
     %Token{}
     |> Token.changeset(%{data: data, token_status: token_status})
     |> Repo.insert
+  end
+
+  def get_by_stripe_id(id) do
+    Repo.one(from t in Token,
+      where: fragment("(?)->'stripe'->>'id' = ?", t.data, ^id))
   end
 
   def post_to_api({:ok, %Token{data: %{"stripe" => stripe, "invoice" => invoice}} = token}) do

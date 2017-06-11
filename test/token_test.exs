@@ -32,5 +32,18 @@ defmodule StripeCallbacks.TokenTest do
     assert updated.token_status == "error"
   end
 
+  test "get_by_stripe_id" do
+
+    {:ok, token} = Token.create(%{
+      "invoice" => %{"amount" => "2000"},
+      "stripe" => %{"id" => "tok_123abc"}
+    })
+
+    assert Token.get_by_stripe_id("tok_blahblah") == nil
+    same_token = Token.get_by_stripe_id("tok_123abc")
+    assert same_token != nil
+    assert same_token.id == token.id
+  end
+
 end
 
