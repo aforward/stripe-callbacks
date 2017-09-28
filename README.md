@@ -8,7 +8,7 @@ Add `stripe_callbacks` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:stripe_callbacks, "~> 0.6.0"}]
+  [{:stripe_callbacks, "~> 0.6.1"}]
 end
 ```
 
